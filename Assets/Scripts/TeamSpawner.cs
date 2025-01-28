@@ -57,7 +57,7 @@ public class TeamSpawner : MonoBehaviour
     {
         foreach (Scraper.Player player in playersCurrentlyOnDisplay)
         {
-            if (!player.isMoved)
+            if (!player.isInPitch)
             {
                 player.attachedGameObject.transform.position = restingPlace;
             }
@@ -66,7 +66,7 @@ public class TeamSpawner : MonoBehaviour
         playersCurrentlyOnDisplay.Clear();
         for (int i = 0; i < playersToDisplay.Count; i++)
         {
-            if (playersToDisplay[i].isMoved)
+            if (playersToDisplay[i].isInPitch)
             {
                 continue;
             }
@@ -98,12 +98,11 @@ public class TeamSpawner : MonoBehaviour
 
                 playerPO.playerJerseyNumber.text = Scraper.team1.players[i].jerseyNumber;
                 playerPO.playerName.text = Scraper.team1.players[i].lastName;
+                playerPO.attachedPlayer = Scraper.team1.players[i];
+
                 player.name = Scraper.team1.players[i].lastName;
 
                 Scraper.team1.players[i].img = playerPO.jerseyEIMG;
-
-                playerPO.infoName.text = Scraper.team1.players[i].fullName;
-                playerPO.infoFoot.text = Scraper.team1.players[i].foot;
 
                 Scraper.team1.players[i].isSpawned = true;
 
@@ -141,7 +140,9 @@ public class TeamSpawner : MonoBehaviour
             {
                 if (pixelArray[i].r > 0.85f && pixelArray[i].g > 0.85f && pixelArray[i].b > 0.85f)
                 {
-                    Debug.Log("CLEARED COLOR");
+                    
+            
+            ("CLEARED COLOR");
                     pixelArray[i] = new Color(0, 0, 0, 0);
                     // STOPPED HERE <-
                     // current problem: cant remove white bg from player images
@@ -203,6 +204,8 @@ public class TeamSpawner : MonoBehaviour
             {
                 foreach (Scraper.Player valuevalue in value)
                 {
+                    
+                    
                     Debug.Log("Position: " + key + " Name: " + valuevalue.lastName + " at the page : " + i);
                 }
                 i++;

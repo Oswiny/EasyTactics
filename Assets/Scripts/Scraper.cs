@@ -10,8 +10,6 @@ using UnityEngine.UI;
 public class Scraper : MonoBehaviour
 {
 
-    // left nowhere:
-    // current goal: connect get team button with scrape function
 
     public RawImage teamLogoIMG;
     public RawImage playerIMGTest;
@@ -62,8 +60,6 @@ public class Scraper : MonoBehaviour
         public bool isSpawned = false;
 
         public bool isInPitch = false;
-
-        public bool isMoved = false;
 
         public GameObject attachedGameObject;
 
@@ -142,32 +138,6 @@ public class Scraper : MonoBehaviour
             return playerPositionsDictionary;
         }
 
-        public List<Player> movedPlayers()
-        {
-            List<Player> movedPlayers = new List<Player>();
-            foreach (Player player in players)
-            {
-                if (player.isMoved == true)
-                {
-                    movedPlayers.Add(player);
-                }
-            }
-            return movedPlayers;
-        }
-
-        public List<Player> onScreen()
-        {
-            List<Player> onScreen = new List<Player>();
-            foreach (Player player in players)
-            {
-                if (player.isMoved == true)
-                {
-                    onScreen.Add(player);
-                }
-            }
-            return onScreen;
-        }
-
     }
 
     static public Team team1 = new Team();
@@ -197,14 +167,7 @@ public class Scraper : MonoBehaviour
             ChooseTeam.requiredPlayerScraping = false;
             playerParentObject.SetActive(false);
             scrapeSinglePlayer(hrefToPlayerPage(ChooseTeam.playerHref));
-            //-----------------------------------------------------------------------------------//
-            //---->-print("Hello World")--------------------------------------------------------//
-            //---->-Hello-World----------------------------------------------------------------//
-            //--------------------------------------------------------------------------------//
-            //-------------------------------------------------------------------------------//
-            //------------------------------------------------------------------------------//
-            //-----------------------------------------------------------------------------//
-            //----------------------------------------------------------------------------//
+
 
             signalTeamSpawner = true;
             signalJerseySelector = true;

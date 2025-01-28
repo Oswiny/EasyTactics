@@ -37,29 +37,22 @@ public class DragDrop : MonoBehaviour
             {
                 transform.position = raycastHit.transform.position + new Vector3(0, 0, -0.01f);
             }
-            else if (raycastHit.transform.tag == "pitchArea")
+            else if (raycastHit.transform.tag == "pitchArea" || raycastHit.transform.tag == "spawnArea")
             {
                 foreach (Scraper.Player player in Scraper.team1.players)
                 {
                     if (player.attachedGameObject == gameObject)
                     {
-                        player.isMoved = true;
-                        player.attachedGameObject.GetComponent<PlayerObject>().isMoved = true;
-                        player.attachedGameObject.GetComponent<PlayerObject>().isInPitch = true;
-                        player.isInPitch = true;
-                    }
-                }
-            }
-            else if (raycastHit.transform.tag == "spawnArea")
-            {
-                foreach(Scraper.Player player in Scraper.team1.players)
-                {
-                    if(player.attachedGameObject == gameObject)
-                    {
-                        player.isMoved = false;
-                        player.attachedGameObject.GetComponent<PlayerObject>().isMoved = false;
-                        player.attachedGameObject.GetComponent<PlayerObject>().isInPitch = false;
-                        player.isInPitch = false;
+                        if (raycastHit.transform.tag == "pitchArea")
+                        {
+                            player.attachedGameObject.GetComponent<PlayerObject>().isInPitch = true;
+                            player.isInPitch = true;
+                        }
+                        if (raycastHit.transform.tag == "spawnArea")
+                        {
+                            player.attachedGameObject.GetComponent<PlayerObject>().isInPitch = false;
+                            player.isInPitch = false;
+                        }
                     }
                 }
             }
@@ -78,7 +71,6 @@ public class DragDrop : MonoBehaviour
     {
         if (isDragDropOn)
         {
-            Debug.Log(gameObject.GetComponent<PlayerObject>().infoName);
             transform.position = getMousePos() + distance;
         }
     }

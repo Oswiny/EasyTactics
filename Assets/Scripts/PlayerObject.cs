@@ -10,12 +10,9 @@ public class PlayerObject : MonoBehaviour
 {
     public TMP_Text playerName; 
     public TMP_Text playerJerseyNumber;
+    public Scraper.Player attachedPlayer;
 
-    public GameObject infoCard;
-    public TMP_Text infoName;
-    public TMP_Text infoFoot;
     public RawImage jerseyEIMG;
-    public bool isMoved = false;
     public bool isInPitch = false;
 
     Camera cam;
@@ -32,8 +29,8 @@ public class PlayerObject : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.LeftShift))
         {
-            infoCard.SetActive(!infoCard.activeInHierarchy);
             Debug.Log("Click has been succesfully detected");
+            InformationCard.activateInfoCard(attachedPlayer);
         }
     }
 

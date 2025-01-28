@@ -22,6 +22,7 @@ public class ChooseTeam : MonoBehaviour
     public bool searchPlayers;
     public GameObject searchForClubsButton;
     public GameObject searchForPlayersButton;
+    public GameObject noResults;
 
     static public string teamHref;
     static public string playerHref;
@@ -37,6 +38,9 @@ public class ChooseTeam : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
+            
+            
+            
             Debug.Log(teamInputField.text);
         }
     }
@@ -53,7 +57,11 @@ public class ChooseTeam : MonoBehaviour
         var web = new HtmlWeb();
         var document = web.Load(searchURL);
         var nodes = document.DocumentNode.SelectNodes(".//div[@class='large-12 columns']");
-
+        if (nodes == null)
+        {
+            noResults.SetActive(true);
+            return;
+        }
         int index = -1;
         for (int i = 0; i < nodes.Count; i++)
         {
@@ -66,7 +74,9 @@ public class ChooseTeam : MonoBehaviour
         var trueNodes = nodes[index].SelectNodes("div/div/div/table/tbody/tr[position()+1>1]");
 
         /*
-        Debug.Log(trueNodes[0].SelectSingleNode(".//td[@class='hauptlink']").InnerText);
+        
+        
+        (trueNodes[0].SelectSingleNode(".//td[@class='hauptlink']").InnerText);
         Debug.Log(trueNodes[0].SelectSingleNode(".//td[@class='hauptlink']/a").GetAttributeValue("href", string.Empty).Trim());
         */
 
@@ -107,6 +117,7 @@ public class ChooseTeam : MonoBehaviour
     //possible optimization by grouping common lines
     public void onSearchButtonDown()
     {
+        noResults.SetActive(false);
         if (spawnedSearchResults.Count == 0)
         {
             teamInputField.interactable = false;
