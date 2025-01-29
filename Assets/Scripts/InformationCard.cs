@@ -8,9 +8,11 @@ using UnityEngine.UI;
 public class InformationCard : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameObject _infoCard;
+
     public TMP_Text _jerseyNumber;
     public TMP_Text _fullName;
-    public TMP_Text _lastName;
+    public TMP_Text _nameAndNo;
 
     public GameObject _isInjured; //bool
     public TMP_Text _injury;
@@ -23,7 +25,7 @@ public class InformationCard : MonoBehaviour
 
     public TMP_Text _birthDate;
 
-    static public TMP_Text _age;
+    public TMP_Text _age;
 
     public TMP_Text _nationality;
 
@@ -37,16 +39,21 @@ public class InformationCard : MonoBehaviour
     public TMP_Text _joinFee;
     public TMP_Text _contract;
 
+    public TMP_Text _contractBeginEnd;
+
+    public TMP_Text _joinInfo;
+
     public TMP_Text _marketValue;
 
     public RawImage _image;
 
 
 
-
+    static public GameObject infoCard;
+    
     static public TMP_Text jerseyNumber;
     static public TMP_Text fullName;
-    static public TMP_Text lastName;
+    static public TMP_Text nameAndNo;
 
     static public GameObject isInjured; //bool
     static public TMP_Text injury;
@@ -73,6 +80,11 @@ public class InformationCard : MonoBehaviour
     static public TMP_Text joinFee;
     static public TMP_Text contract;
 
+    static public TMP_Text contractBeginEnd;
+
+
+    static public TMP_Text joinInfo;
+
     static public TMP_Text marketValue;
 
     static public RawImage image;
@@ -84,9 +96,10 @@ public class InformationCard : MonoBehaviour
 
     void Awake()
     {
+        infoCard = _infoCard;
         jerseyNumber = _jerseyNumber;
         fullName = _fullName;
-        lastName = _lastName;
+        nameAndNo = _nameAndNo;
         injury = _injury;
         eligiblity = _eligiblity;
         reason = _reason;
@@ -100,6 +113,8 @@ public class InformationCard : MonoBehaviour
         joinFrom = _joinFrom;
         joinFee = _joinFee;
         contract = _contract;
+        contractBeginEnd = _contractBeginEnd;
+        joinInfo = _joinInfo;
         marketValue = _marketValue;
         image = _image;
     }
@@ -112,21 +127,27 @@ public class InformationCard : MonoBehaviour
 
     public static void activateInfoCard(Scraper.Player player)
     {
-        jerseyNumber.text = player.jerseyNumber;
         fullName.text = player.fullName;
-        lastName.text = player.lastName;
-        injury.text = player.injury;
-        eligiblity.text = player.eligibility;
+        nameAndNo.text = player.lastName + "#" + player.jerseyNumber;
+        injury.text = player.injury == string.Empty ? "None" : player.injury;
+        eligiblity.text = player.eligibility == string.Empty ? "None" : player.eligibility;
         reason.text = player.reason;
         position.text = player.position;
         birthDate.text = player.birthDate;
-        age.text = player.age; //.//
+        age.text = player.age;
+        nationality.text = string.Join("&", player.nationalities);
+        height.text = player.height;
         foot.text = player.foot;
-        joinDate.text = player.joinDate;
-        joinFrom.text = player.joinedFrom;
-        joinFee.text = player.joinedFee;
-        contract.text = player.contract;
+        contractBeginEnd.text = player.joinDate + "-" + player.contract;
+        joinInfo.text = "Joined from " + player.joinedFrom + " for ";
+        joinInfo.text += player.joinedFee == "-" ? "free" : player.joinedFee;
         marketValue.text = player.marketValue;
         image.texture = player.img.texture;
+        infoCard.SetActive(true);
+    }
+
+    public void closeInformationCard()
+    {
+        infoCard.SetActive(false);
     }
 }
