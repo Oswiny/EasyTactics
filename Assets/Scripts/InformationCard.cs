@@ -128,7 +128,7 @@ public class InformationCard : MonoBehaviour
     public static void activateInfoCard(Scraper.Player player)
     {
         fullName.text = player.fullName;
-        nameAndNo.text = player.lastName + "#" + player.jerseyNumber;
+        //nameAndNo.text = player.lastName + "#" + player.jerseyNumber;
         injury.text = player.injury == string.Empty ? "None" : player.injury;
         eligiblity.text = player.eligibility == string.Empty ? "None" : player.eligibility;
         reason.text = player.reason;
